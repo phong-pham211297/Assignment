@@ -1,0 +1,12 @@
+<div class="row" class="nav">
+  <div class="col" *ngFor="let category of categories">
+    <div
+      [ngClass]="{ category, active: category.isActive === true }"
+      (click)="handleCategoryClick(category?.id || 0)"
+    >
+      <a [href]="category?.link" onclick="event.preventDefault()">{{
+        category?.title
+      }}</a>
+    </div>
+  </div>
+</div>
