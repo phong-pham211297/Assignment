@@ -14,55 +14,55 @@ export class HeaderComponent implements OnInit {
     {
       id: 1,
       title: 'Top Games',
-      link: '',
+      link: '/top',
       isActive: true,
     },
     {
       id: 2,
       title: 'New Games',
-      link: '',
+      link: '/new',
       isActive: false,
     },
     {
       id: 3,
       title: 'Slots',
-      link: '',
+      link: '/slots',
       isActive: false,
     },
     {
       id: 4,
       title: 'Jackpots',
-      link: '',
+      link: '/jackpots',
       isActive: false,
     },
     {
       id: 5,
       title: 'Live',
-      link: '',
+      link: '/live',
       isActive: false,
     },
     {
       id: 6,
       title: 'Blackjack',
-      link: '',
+      link: '/blackjack',
       isActive: false,
     },
     {
       id: 7,
       title: 'Roulette',
-      link: '',
+      link: '/roulette',
       isActive: false,
     },
     {
       id: 8,
       title: 'Table',
-      link: '',
+      link: '/table',
       isActive: false,
     },
     {
       id: 9,
       title: 'Poker',
-      link: '',
+      link: '/poker',
       isActive: false,
     },
     {
@@ -70,8 +70,31 @@ export class HeaderComponent implements OnInit {
       title: 'Other',
       link: '',
       isActive: false,
+      children: [
+        {
+          id: 11,
+          title: 'Ball',
+          link: '/ball',
+          isActive: false,
+        },
+        {
+          id: 12,
+          title: 'Virtual',
+          link: '/virtual',
+          isActive: false,
+        },
+        {
+          id: 13,
+          title: 'Fun',
+          link: '/fun',
+          isActive: false,
+        },
+      ],
     },
   ];
+
+  // Navbar expand state
+  public isCollapsed = false;
   //#endregion
 
   //#region Constructor
@@ -90,11 +113,31 @@ export class HeaderComponent implements OnInit {
       return;
     }
 
-    this.categories = this.categories.map((category: Category) => {
+    this.categories = this.changeActiveCategory(this.categories, id);
+
+    return;
+  }
+
+  public changeActiveCategory(categories: Category[], id: number): Category[] {
+    return categories.map((category: Category) => {
       category.isActive = category?.id === id;
+
+      if (category.children && category.children.length) {
+        category.children = this.changeActiveCategory(category?.children, id);
+      }
 
       return category;
     });
+  }
+
+  public handleLinkClick(event: any, category: Category) {
+    if (!category) {
+      return;
+    }
+
+    if (category.children && category.children.length) {
+      event.preventDefault();
+    }
 
     return;
   }

@@ -1,20 +1,96 @@
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+
 .nav {
-  background-color: #373737;
+  background-color: #373737 !important;
+  padding: 0px;
+  height: 64px;
 
-  .category {
+  .navbar-toggler {
+    margin: 10px 0px 10px 10px;
+  }
+
+  .navbar {
+    display: flex;
+    width: 100%;
+    padding: 0px;
+    height: 100%;
+
+    .nav-item-wrapper {
+      text-align: center;
+      cursor: pointer;
+      flex: 1 1;
+      height: 100%;
+
+      .nav-item {
+        height: 100%;
+
+        .nav-link {
+          padding: 0px;
+          color: white;
+          background-color: #373737;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          a {
+            color: white;
+            text-decoration: none;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          &.active {
+            background-color: #8dc63f;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  left: 0px;
+  min-width: 120px;
+  background-color: #373737 !important;
+  padding: 0px;
+
+  .dropdown-item {
+    padding: 10px 5px;
     text-align: center;
-    padding: 15px 0px;
-    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 64px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 
-    a {
-      color: white;
-      text-decoration: none;
-      overflow: hidden;
-      white-space: nowrap;
+    &:hover {
+      color: black;
     }
 
     &.active {
       background-color: #8dc63f;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .navbar {
+    display: block !important;
+
+    .nav-item-wrapper {
+      height: 64px !important;
     }
   }
 }

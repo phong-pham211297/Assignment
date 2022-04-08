@@ -1,4 +1,4 @@
-<div class="row" class="nav">
+<!-- <div class="row" class="nav">
   <div class="col" *ngFor="let category of categories">
     <div
       [ngClass]="{ category, active: category.isActive === true }"
@@ -9,4 +9,73 @@
       }}</a>
     </div>
   </div>
-</div>
+</div> -->
+
+<nav class="navbar-expand-lg navbar-dark bg-dark nav">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarText"
+    aria-controls="navbarText"
+    [attr.aria-expanded]="!isCollapsed"
+    [ngClass]="{ collapse: isCollapsed }"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarText">
+    <div class="navbar">
+      <div *ngFor="let category of categories" class="nav-item-wrapper">
+        <!-- Category nav item  -->
+        <div
+          class="nav-item"
+          *ngIf="!category?.children || !category?.children?.length"
+        >
+          <div
+            class="nav-link"
+            [ngClass]="{ active: category.isActive === true }"
+            (click)="handleCategoryClick(category?.id || 0)"
+          >
+            <a
+              [href]="category?.link"
+              (click)="handleLinkClick($event, category)"
+              >{{ category?.title }}</a
+            >
+          </div>
+        </div>
+
+        <!-- Category nav item dropdown  -->
+        <div
+          class="nav-item dropdown"
+          *ngIf="category?.children && category?.children?.length"
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ category?.title }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li
+              *ngFor="let child of category?.children"
+              (click)="handleCategoryClick(child?.id || 0)"
+            >
+              <a
+                (click)="handleCategoryClick(child?.id || 0)"
+                class="dropdown-item nav-link"
+                [href]="child?.link"
+                [ngClass]="{ active: child.isActive === true }"
+                >{{ child?.title }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

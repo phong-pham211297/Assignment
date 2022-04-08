@@ -3,4 +3,5 @@ export interface Category {
   title: string;
   link: string;
   isActive: boolean;
+  children?: Category[];
 }
