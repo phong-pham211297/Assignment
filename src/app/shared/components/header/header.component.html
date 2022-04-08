@@ -50,30 +50,32 @@
           class="nav-item dropdown"
           *ngIf="category?.children && category?.children?.length"
         >
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            {{ category?.title }}
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li
-              *ngFor="let child of category?.children"
-              (click)="handleCategoryClick(child?.id || 0)"
+          <div class="nav-link">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
-              <a
+              {{ category?.title }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li
+                *ngFor="let child of category?.children"
                 (click)="handleCategoryClick(child?.id || 0)"
-                class="dropdown-item nav-link"
-                [href]="child?.link"
-                [ngClass]="{ active: child.isActive === true }"
-                >{{ child?.title }}</a
               >
-            </li>
-          </ul>
+                <a
+                  (click)="handleCategoryClick(child?.id || 0)"
+                  class="dropdown-item nav-link"
+                  [href]="child?.link"
+                  [ngClass]="{ active: child.isActive === true }"
+                  >{{ child?.title }}</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

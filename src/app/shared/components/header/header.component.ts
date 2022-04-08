@@ -1,5 +1,6 @@
 import { Category } from './../../models/category/index';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -60,12 +61,6 @@ export class HeaderComponent implements OnInit {
       isActive: false,
     },
     {
-      id: 9,
-      title: 'Poker',
-      link: '/poker',
-      isActive: false,
-    },
-    {
       id: 10,
       title: 'Other',
       link: '',
@@ -91,6 +86,12 @@ export class HeaderComponent implements OnInit {
         },
       ],
     },
+    {
+      id: 9,
+      title: 'Poker',
+      link: '/poker',
+      isActive: false,
+    },
   ];
 
   // Navbar expand state
@@ -98,14 +99,18 @@ export class HeaderComponent implements OnInit {
   //#endregion
 
   //#region Constructor
-  public constructor() {}
+  public constructor(public activatedRoute: ActivatedRoute) {}
 
   //#endregion
 
   //#region Methods
 
   // Trigger when component inits
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    const getActivatedCategory = this.activatedRoute.snapshot.url;
+
+    console.log(getActivatedCategory);
+  }
 
   // Trigger when link click
   public handleCategoryClick(id: number): void {
