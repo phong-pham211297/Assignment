@@ -36,7 +36,7 @@
           }
 
           &.active {
-            background-color: #8dc63f;
+            background-color: #8dc63f !important;
           }
 
           &:hover {
@@ -67,7 +67,7 @@
     }
 
     &.active {
-      background-color: #8dc63f;
+      background-color: #8dc63f !important;
     }
   }
 }

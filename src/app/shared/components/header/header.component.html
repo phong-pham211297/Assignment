@@ -34,14 +34,11 @@
         >
           <div
             class="nav-link"
-            [ngClass]="{ active: category.isActive === true }"
-            (click)="handleCategoryClick(category?.id || 0)"
+            [ngClass]="{ active: category?.link === currentCategory }"
           >
-            <a
-              [href]="category?.link"
-              (click)="handleLinkClick($event, category)"
-              >{{ category?.title }}</a
-            >
+            <a [href]="" (click)="handleLinkClick($event, category)">{{
+              category?.title
+            }}</a>
           </div>
         </div>
 
@@ -62,15 +59,12 @@
               {{ category?.title }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li
-                *ngFor="let child of category?.children"
-                (click)="handleCategoryClick(child?.id || 0)"
-              >
+              <li *ngFor="let child of category?.children">
                 <a
-                  (click)="handleCategoryClick(child?.id || 0)"
+                  (click)="handleLinkClick($event, child)"
                   class="dropdown-item nav-link"
-                  [href]="child?.link"
-                  [ngClass]="{ active: child.isActive === true }"
+                  [href]=""
+                  [ngClass]="{ active: child?.link === currentCategory }"
                   >{{ child?.title }}</a
                 >
               </li>

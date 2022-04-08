@@ -1,13 +1,14 @@
 import { Category } from './../../models/category/index';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   //#region Props
 
   // MOCK: mock categories
@@ -15,49 +16,49 @@ export class HeaderComponent implements OnInit {
     {
       id: 1,
       title: 'Top Games',
-      link: '/top',
+      link: 'top',
       isActive: true,
     },
     {
       id: 2,
       title: 'New Games',
-      link: '/new',
+      link: 'new',
       isActive: false,
     },
     {
       id: 3,
       title: 'Slots',
-      link: '/slots',
+      link: 'slots',
       isActive: false,
     },
     {
       id: 4,
       title: 'Jackpots',
-      link: '/jackpots',
+      link: 'jackpots',
       isActive: false,
     },
     {
       id: 5,
       title: 'Live',
-      link: '/live',
+      link: 'live',
       isActive: false,
     },
     {
       id: 6,
       title: 'Blackjack',
-      link: '/blackjack',
+      link: 'blackjack',
       isActive: false,
     },
     {
       id: 7,
       title: 'Roulette',
-      link: '/roulette',
+      link: 'roulette',
       isActive: false,
     },
     {
       id: 8,
       title: 'Table',
-      link: '/table',
+      link: 'table',
       isActive: false,
     },
     {
@@ -69,19 +70,19 @@ export class HeaderComponent implements OnInit {
         {
           id: 11,
           title: 'Ball',
-          link: '/ball',
+          link: 'ball',
           isActive: false,
         },
         {
           id: 12,
           title: 'Virtual',
-          link: '/virtual',
+          link: 'virtual',
           isActive: false,
         },
         {
           id: 13,
           title: 'Fun',
-          link: '/fun',
+          link: 'fun',
           isActive: false,
         },
       ],
@@ -89,17 +90,26 @@ export class HeaderComponent implements OnInit {
     {
       id: 9,
       title: 'Poker',
-      link: '/poker',
+      link: 'poker',
       isActive: false,
     },
   ];
 
   // Navbar expand state
   public isCollapsed = false;
+
+  // Current category
+  public currentCategory = '';
+
+  // Page subscription
+  private _subcription: Subscription = new Subscription();
   //#endregion
 
   //#region Constructor
-  public constructor(public activatedRoute: ActivatedRoute) {}
+  public constructor(
+    public activatedRoute: ActivatedRoute,
+    public router: Router
+  ) {}
 
   //#endregion
 
@@ -107,37 +117,23 @@ export class HeaderComponent implements OnInit {
 
   // Trigger when component inits
   public ngOnInit(): void {
-    const getActivatedCategory = this.activatedRoute.snapshot.url;
+    const getCurrentCategorySubscription =
+      this.activatedRoute.queryParams.subscribe((params) => {
+        this.currentCategory = params['category'];
+      });
 
-    console.log(getActivatedCategory);
+    this._subcription.add(getCurrentCategorySubscription);
   }
 
-  // Trigger when link click
-  public handleCategoryClick(id: number): void {
-    if (!id) {
+  public handleLinkClick(event: MouseEvent, category: Category) {
+    if (!category) {
       return;
     }
 
-    this.categories = this.changeActiveCategory(this.categories, id);
-
-    return;
-  }
-
-  public changeActiveCategory(categories: Category[], id: number): Category[] {
-    return categories.map((category: Category) => {
-      category.isActive = category?.id === id;
-
-      if (category.children && category.children.length) {
-        category.children = this.changeActiveCategory(category?.children, id);
-      }
-
-      return category;
-    });
-  }
-
-  public handleLinkClick(event: any, category: Category) {
-    if (!category) {
-      return;
+    if (!category.children || !category.children.length) {
+      this.router.navigate(['/'], {
+        queryParams: { category: category?.link },
+      });
     }
 
     if (category.children && category.children.length) {
@@ -147,5 +143,10 @@ export class HeaderComponent implements OnInit {
     return;
   }
 
+  public ngOnDestroy(): void {
+    if (this._subcription && !this._subcription.closed) {
+      this._subcription.unsubscribe();
+    }
+  }
   //#endregion
 }
