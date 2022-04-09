@@ -1,0 +1,34 @@
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+
+.card-wrapper {
+  margin: 25px 8px;
+  flex: 0 1 calc(100% - 16px);
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+@include media-breakpoint-up(sm) {
+  .card-wrapper {
+    flex: 0 1 calc(50% - 16px);
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .card-wrapper {
+    flex: 0 1 calc(33.33333333% - 16px);
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .card-wrapper {
+    flex: 0 1 calc(25% - 16px);
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .card-wrapper {
+    flex: 0 1 calc(20% - 16px);
+  }
+}

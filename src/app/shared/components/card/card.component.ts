@@ -11,6 +11,10 @@ export class CardComponent implements OnInit {
 
   // Input game information
   @Input() game!: Game;
+
+  // Is focus state
+  public isFocused: boolean = false;
+
   //#endregion
 
   //#region Constructor
@@ -21,5 +25,12 @@ export class CardComponent implements OnInit {
   //#region Methods
   public ngOnInit(): void {}
 
+  public onMouseEnter(): void {
+    this.isFocused = true;
+  }
+
+  public onMouseLeave(): void {
+    this.isFocused = false;
+  }
   //#endregion
 }

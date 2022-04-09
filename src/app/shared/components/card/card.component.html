@@ -1,4 +1,4 @@
-<div class="card-wrapper">
+<div class="card" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   <!-- Image section  -->
   <section class="image-wrapper">
     <img [src]="game?.image" alt="Image is not ready" />
@@ -6,16 +6,29 @@
   <!-- End section  -->
 
   <!-- Ribbon section -->
-  <section class="ribbon-wrapper">
+  <!-- <section class="ribbon-wrapper">
     <img />
-  </section>
+  </section> -->
   <!-- End section -->
 
   <!-- Jackpot section -->
-  <section class="jackpot-wrapper">
+  <section class="jackpot-wrapper" *ngIf="game?.jackpot">
     <div class="jackpot-content">
       <p>£{{ game?.jackpot }}</p>
     </div>
+  </section>
+  <!-- End section -->
+
+  <!-- Controller section -->
+  <section class="hover-background" [ngClass]="{isFocused}">
+    <section class="controller-wrapper">
+      <div class="controller">
+        <span>
+          {{ game?.name }}
+        </span>
+        <img src="../../../../assets/icon/svg/play_circle.svg" />
+      </div>
+    </section>
   </section>
   <!-- End section -->
 </div>
