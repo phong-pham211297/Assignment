@@ -5,4 +5,5 @@ export interface Game {
   categories: string[];
   amount: number;
   jackpot: number;
+  ribbon?: string;
 }

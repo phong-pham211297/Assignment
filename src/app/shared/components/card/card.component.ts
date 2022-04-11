@@ -14,6 +14,7 @@ export class CardComponent implements OnInit {
 
   // Is focus state
   public isFocused: boolean = false;
+  public isLoading: boolean = true;
 
   //#endregion
 
@@ -31,6 +32,10 @@ export class CardComponent implements OnInit {
 
   public onMouseLeave(): void {
     this.isFocused = false;
+  }
+
+  public logIndex(): void {
+    this.isLoading = false;
   }
   //#endregion
 }
